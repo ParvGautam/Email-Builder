@@ -6,7 +6,7 @@ import { Loader2, Save, Download, RefreshCcw } from 'lucide-react';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Define API_BASE_URL at the top of the file
-const API_BASE_URL = "http://localhost:5000"; // Change this to your backend URL as needed
+const API_BASE_URL = "https://email-builder-backend-1xwm.onrender.com"; // Change this to your backend URL as needed
 
 const EmailBuilder = () => {
     const emailEditorRef = useRef(null);
