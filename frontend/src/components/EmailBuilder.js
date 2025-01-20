@@ -5,6 +5,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import { Loader2, Save, Download, RefreshCcw } from 'lucide-react';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Define API_BASE_URL at the top of the file
+const API_BASE_URL = "http://localhost:5000"; // Change this to your backend URL as needed
+
 const EmailBuilder = () => {
     const emailEditorRef = useRef(null);
     const [loading, setLoading] = useState(false);
@@ -26,7 +29,7 @@ const EmailBuilder = () => {
     const loadLastTemplate = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:5000/getEmailLayout');
+            const response = await axios.get(`${API_BASE_URL}/getEmailLayout`);
             if (response.data && response.data.design) {
                 const unlayer = emailEditorRef.current?.editor;
                 if (unlayer) {
@@ -48,7 +51,7 @@ const EmailBuilder = () => {
         formData.append('image', file);
 
         try {
-            const response = await axios.post('http://localhost:5000/uploadImage', formData, {
+            const response = await axios.post(`${API_BASE_URL}/uploadImage`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             return response.data.imageUrl;
@@ -79,7 +82,7 @@ const EmailBuilder = () => {
 
             const templateName = currentTemplate?.name || "Untitled Template";
 
-            const response = await axios.post("http://localhost:5000/uploadEmailConfig", {
+            const response = await axios.post(`${API_BASE_URL}/uploadEmailConfig`, {
                 design,
                 html,
                 name: templateName,
@@ -109,7 +112,7 @@ const EmailBuilder = () => {
             try {
                 const { html } = data;
                 const response = await axios.post(
-                    "http://localhost:5000/renderAndDownloadTemplate", 
+                    `${API_BASE_URL}/renderAndDownloadTemplate`, 
                     { html },
                     { responseType: 'blob' }
                 );
